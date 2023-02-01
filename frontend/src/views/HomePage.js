@@ -3,6 +3,8 @@ import { Link,Outlet,useNavigate,useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 import logo from '../../src/logo.png'
+import Kevin from '../../src/views/Kevin.JPG'
+import { Popover } from '@headlessui/react'
 
 export default function HomePage(){
   const navigate = useNavigate()
@@ -19,7 +21,7 @@ export default function HomePage(){
 
   return (
     <div className='flex flex-row space-x-10'>
-        <nav className='flex flex-col p-9 justify-start basis-1/5'>
+        <nav className='flex flex-col p-9 justify-start basis-1/5 border border-r-slate-300'>
           <div className='pt-3 mb-9'>
             <img src={logo} className='w-24'/>
           </div>
@@ -67,17 +69,40 @@ export default function HomePage(){
               <FontAwesomeIcon className="h-6 w-6 mr-4" icon={solid('plus')}/>Create
             </button>
 
-            <button className='flex justify-start items-center'>
-              Profile
+            <button className={selectProfile ? 'flex justify-start items-center font-bold' : 'flex justify-start items-center text-gray-600'}
+              onClick={()=>{setSelectHome(false);setSelectSearch(false);setSelectExplore(false);setSelectReels(false);setSelectMessages(false);setSelectNotifications(false);setSelectCreate(false);setSelectProfile(true);setSelectMore(false)}}> 
+              <img src={Kevin} className={selectProfile ? 'h-8 w-8 mr-2 rounded-full border-2 border-gray-900' : 'h-8 w-8 mr-2 rounded-full border-2 border-transparent'}/>
+                Profile
             </button>
           </div>
 
           <div className='mt-28'>
-          <button 
+          <Popover className="relative">
+            <Popover.Button 
               className={selectMore ? 'flex justify-start items-center font-bold' : 'flex justify-start items-center text-gray-600'}
-              onClick={()=>{setSelectHome(false);setSelectSearch(false);setSelectExplore(false);setSelectReels(false);setSelectMessages(false);setSelectNotifications(false);setSelectCreate(false);setSelectProfile(false);setSelectMore(true)}}> 
+              onClick={()=>{setSelectHome(false);setSelectSearch(false);setSelectExplore(false);setSelectReels(false);setSelectMessages(false);setSelectNotifications(false);setSelectCreate(false);setSelectProfile(false);setSelectMore(true)}}>
               <FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('bars')}/>More
-            </button>
+            </Popover.Button>
+
+            <Popover.Panel className="absolute z-10 -mt-56 -ml-4 w-56">
+              <div className="flex flex-col bg-white border border-slate-400 rounded-md">
+                <div className='flex flex-col'>
+                  <button className='flex flex-row'>Settings<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('gear')}/></button>
+                  <button>Saved<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('bookmark')}/></button>
+                  <button>Switch Appearance<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('moon')}/></button>
+                  <button>Your Activity<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('clock')}/></button>
+                  <button>Report a Problem<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('circle-exclamation')}/></button>
+                </div>
+                
+                <div className='flex flex-col'>
+                  <button>Switch Accounts</button>
+                  <button>Log out</button>
+                </div>
+              </div>
+
+              <img src="/solutions.jpg" alt="" />
+            </Popover.Panel>
+          </Popover>
           </div>
         </nav>
 
