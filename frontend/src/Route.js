@@ -1,11 +1,10 @@
 import React from 'react';
 import { Navigate, useRoutes} from 'react-router-dom';
 import HomePage from './views/HomePage'; 
-// import ExplorePage from './views/ExplorePage'; 
-// import BookmarkPage from './views/BookmarkPage'; 
-// import LoginPage from './views/LoginPage';
-// import ProfilePage from './views/ProfilePage';
-// import OtherProfilePage from './views/OtherProfilePage';
+import ExplorePage from './views/ExplorePage'; 
+import MessagePage from './views/MessagePage'; 
+import ProfilePage from './views/ProfilePage';
+import ReelsPage from './views/ReelsPage';
 
 export default function Routes() {
   return useRoutes([
@@ -27,10 +26,10 @@ export default function Routes() {
       path: '/', 
           element: <HomePage/>,
           children:[
-            // {path: '/explore', element: <ExplorePage/>},
-            // {path: '/bookmarks', element: <BookmarkPage/>},
-            // {path: '/profile', element: <ProfilePage/>},
-            // {path: '/other_profile', element: <OtherProfilePage/>}
+            {path: '/explore', element: <ExplorePage/>},
+            {path: '/message', element: <MessagePage/>},
+            {path: '/profile', element: <ProfilePage/>},
+            {path: '/reel', element: <ReelsPage/>}
           ]
     },
     { path: '*', element: <Navigate to="/404" replace /> }
