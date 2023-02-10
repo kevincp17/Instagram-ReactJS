@@ -6,6 +6,7 @@ import logo from '../../src/logo.png'
 import wlogo from '../../src/views/white logo.png'
 import Kevin from '../../src/views/Kevin.JPG'
 import { Popover } from '@headlessui/react'
+import Modal from '@mui/material/Modal';
 
 export default function HomePage(){
   const navigate = useNavigate()
@@ -20,6 +21,11 @@ export default function HomePage(){
   const [selectCreate,setSelectCreate]=useState(false)
   const [selectProfile,setSelectProfile]=useState(false)
   const [selectMore,setSelectMore]=useState(false)
+
+  //modal create
+  const [openModalCreate, setOpenModalCreate] = useState(false);
+  const handleOpenModalCreate = () => setOpenModalCreate(true);
+  const handleCloseModalCreate = () => setOpenModalCreate(false);
 
   return (
     <div className='flex flex-row space-x-10'>
@@ -78,9 +84,33 @@ export default function HomePage(){
 
             <button 
               className={selectCreate ? 'flex justify-start items-center font-bold' : 'flex justify-start items-center text-gray-600'}
-              onClick={()=>{setSelectHome(false);setSelectSearch(false);setSelectExplore(false);setSelectReels(false);setSelectMessages(false);setSelectNotifications(false);setSelectCreate(true);setSelectProfile(false);setSelectMore(false)}}> 
+              onClick={()=>{handleOpenModalCreate();setSelectHome(false);setSelectSearch(false);setSelectExplore(false);setSelectReels(false);setSelectMessages(false);setSelectNotifications(false);setSelectCreate(true);setSelectProfile(false);setSelectMore(false)}}> 
               <FontAwesomeIcon className="h-6 w-6 mr-4" icon={solid('plus')}/>Create
             </button>
+            <Modal
+              open={openModalCreate}
+              onClose={handleCloseModalCreate}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <div className='flex flex-col absolute top-20 left-96 bg-white w-2/5 h-4/6 rounded-lg'>
+                <div className='flex justify-center border border-b-gray-200 rounded-t-lg py-2 font-semibold'>
+                  Create new post
+                </div>
+
+                <div className='flex flex-col items-center'>
+                  <FontAwesomeIcon className="h-16 w-16 mt-32" icon={solid('photo-film')}/>
+
+                  <div className='text-2xl my-3'>
+                      Drag photos and videos here
+                  </div>
+                  
+                  <button className='mt-2 translation hover:bg-blue-600 bg-blue-500 w-52 h-7 rounded-lg text-white font-semibold'>
+                    Select from computer
+                  </button>
+                </div>
+              </div>
+            </Modal>
 
             <Link to='/profile'>
               <button className={selectProfile ? 'flex justify-start items-center font-bold' : 'flex justify-start items-center text-gray-600'}
@@ -100,18 +130,18 @@ export default function HomePage(){
             </Popover.Button>
 
             <Popover.Panel className="absolute z-10 -mt-96 -ml-4 w-56 drop-shadow-md">
-              <div className="flex flex-col bg-white border border-slate-400 rounded-md w-full">
-                <div className='flex flex-col border-b-2 border-gray-100'>
-                  <button className='flex flex-row w-full h-full items-center py-2 border-b border-gray-200'>Settings<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('gear')}/></button>
-                  <button className='flex flex-row w-full h-full items-center py-2 border-b border-gray-200'>Saved<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('bookmark')}/></button>
-                  <button className='flex flex-row w-full h-full items-center py-2 border-b border-gray-200'>Switch Appearance<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('moon')}/></button>
-                  <button className='flex flex-row w-full h-full items-center py-2 border-b border-gray-200'>Your Activity<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('clock')}/></button>
-                  <button className='flex flex-row w-full h-full items-center py-2'>Report a Problem<FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('circle-exclamation')}/></button>
+              <div className="flex flex-col bg-white rounded-md w-full">
+                <div className='flex flex-col border-b-2 border-gray-200'>
+                  <button className='translation hover:bg-gray-100 hover:rounded-tr-md hover:rounded-tl-md flex flex-row w-full h-full items-center py-2 pl-4 border-b border-gray-200'><p className='flex justify-start basis-11/12'>Settings</p><FontAwesomeIcon  className="basis-1/12 h-6 w-6 mr-4" icon={solid('gear')}/></button>
+                  <button className='translation hover:bg-gray-100 flex flex-row w-full h-full items-center py-2 pl-4 border-b border-gray-200'><p className='flex justify-start basis-11/12'>Saved</p><FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('bookmark')}/></button>
+                  <button className='translation hover:bg-gray-100 flex flex-row w-full h-full items-center py-2 pl-4 border-b border-gray-200'><p className='flex justify-start basis-11/12'>Switch Appearance</p><FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('moon')}/></button>
+                  <button className='translation hover:bg-gray-100 flex flex-row w-full h-full items-center py-2 pl-4 border-b border-gray-200'><p className='flex justify-start basis-11/12'>Your Activity</p><FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('clock')}/></button>
+                  <button className='translation hover:bg-gray-100 flex flex-row w-full h-full items-center py-2 pl-4'><p className='flex justify-start basis-11/12'>Report a Problem</p><FontAwesomeIcon  className="h-6 w-6 mr-4" icon={solid('circle-exclamation')}/></button>
                 </div>
                 
-                <div className='flex flex-col border-t-2 border-gray-100'>
-                  <button className='flex flex-row w-full h-full items-center py-2 border-b border-gray-200'>Switch Accounts</button>
-                  <button className='flex flex-row w-full h-full items-center py-2'>Log out</button>
+                <div className='flex flex-col border-t-2 border-gray-200'>
+                  <button className='translation hover:bg-gray-100 flex flex-row w-full h-full items-center py-2 pl-4 border-b border-gray-200'>Switch Accounts</button>
+                  <button className='translation hover:bg-gray-100 hover:rounded-br-md hover:rounded-bl-md flex flex-row w-full h-full items-center py-2 pl-4'>Log out</button>
                 </div>
               </div>
 
@@ -125,12 +155,54 @@ export default function HomePage(){
           {
             location.pathname==='/'
             ?
-            <div>
-              This is home
+            <div className='flex flex-col items-center pt-7'>
+              <div className='text-md font-semibold'>
+                  Suggestions for you  
+              </div>
+
+              <div className='flex flex-col border border-gray-200 w-1/2 -px-10 rounded-sm my-3'>
+                <div className='flex flex-row h-28'>
+                  <div className='flex basis-1/5 items-center justify-center'>
+                    <img src={Kevin} className='h-12 w-12 rounded-full'/>
+                  </div>
+
+                  <div className='basis-2/5 flex flex-col mt-5'>
+                    <div className='font-semibold'>username</div>
+                    <div className='text-gray-400'>header</div>
+                    <div className='text-xs'>Suggested for you</div>
+                  </div>
+
+                  <div className='flex items-center justify-end basis-2/5 pr-5'>
+                    <button className='bg-blue-500 w-20 h-8 text-white font-semibold rounded-lg'>Follow</button>
+                  </div>
+                </div>
+              </div>
             </div>
             :
-            <Outlet/>
+              <Outlet/>
           }
+
+          <div className='flex flex-col items-center space-y-3 text-xs mt-20 text-gray-400'>
+                <div className='space-x-5 '>
+                  <button>Meta</button>
+                  <button>About</button>
+                  <button>Blog</button>
+                  <button>Jobs</button>
+                  <button>Help</button>
+                  <button>API</button>
+                  <button>Privacy</button>
+                  <button>Terms</button>
+                  <button>Top Locations</button>
+                  <button>Accounts</button>
+                  <button>Instagram Lite</button>
+                  <button>Contact Uploading & Non-Users</button>
+                </div>
+
+                <div className='flex flex-row space-x-7'>
+                  <div>Language</div>
+                  <div>© 2023 Instagram from Meta</div>
+                </div>
+          </div>
           
         </div>
     </div>
